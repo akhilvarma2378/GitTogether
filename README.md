@@ -39,52 +39,6 @@ GitTogether/
 │   └── package.json
 ├── .gitignore           # Global git ignore
 └── README.md
-
-Here is the complete content for your README.md file. You can copy the code block below and paste it directly into a file named README.md in your root GitTogether/ folder.
-
-Markdown
-
-# GitTogether 🤝
-
-**GitTogether** is a connection platform for developers to find partners for side projects. It facilitates matching based on skills ("I want a project" vs "I want a partner") and enables real-time collaboration through project-based chat groups.
-
-## 🚀 Tech Stack
-
-**Backend:**
-* **Runtime:** Node.js
-* **Framework:** Express.js
-* **Language:** TypeScript
-* **Database:** PostgreSQL
-* **ORM:** Prisma
-* **Real-time:** Socket.io (Setup complete, logic pending)
-
-**Frontend (Planned):**
-* **Framework:** React (Vite)
-* **Language:** TypeScript
-
----
-
-## 📂 Project Structure (Monorepo)
-
-The project follows a monorepo structure to manage client and server in a single repository.
-
-```text
-GitTogether/
-├── client/              # Frontend React Application (Initialized)
-├── server/              # Backend Node/Express Application
-│   ├── src/
-│   │   ├── config/      # Environment & DB Config
-│   │   ├── controllers/ # Business Logic
-│   │   ├── middleware/  # Auth & Validation
-│   │   ├── routes/      # API Endpoints
-│   │   ├── utils/       # Helper functions
-│   │   ├── app.ts       # Express App Setup
-│   │   └── index.ts     # Server Entry Point
-│   ├── prisma/
-│   │   └── schema.prisma # Database Schema definition
-│   └── package.json
-├── .gitignore           # Global git ignore
-└── README.md
 ```
 
 🛠️ Getting Started (Backend)
