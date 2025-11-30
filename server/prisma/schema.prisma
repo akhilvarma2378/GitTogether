@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- Enums ---
+enum ProjectStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+// --- Models ---
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  bio       String?
+  skills    String[]
+  createdAt DateTime @default(now())
+
+  projectsOwned    Project[]     @relation("ProjectOwner")
+  applications     Application[]
+  chatGroups       ChatGroup[]
+  messagesSent     Message[]
+}
+
+model Project {
+  id             Int           @id @default(autoincrement())
+  title          String
+  description    String
+  requiredSkills String[]
+  status         ProjectStatus @default(OPEN)
+  createdAt      DateTime      @default(now())
+
+  ownerId Int
+  owner   User @relation("ProjectOwner", fields: [ownerId], references: [id])
+
+  applications Application[]
+  chatGroup    ChatGroup?
+}
+
+model Application {
+  id        Int               @id @default(autoincrement())
+  status    ApplicationStatus @default(PENDING)
+  
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+
+  @@unique([userId, projectId])
+}
+
+model ChatGroup {
+  id        Int      @id @default(autoincrement())
+  
+  projectId Int      @unique
+  project   Project  @relation(fields: [projectId], references: [id])
+
+  members   User[]
+  messages  Message[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+
+  senderId  Int
+  sender    User      @relation(fields: [senderId], references: [id])
+
+  groupId   Int
+  group     ChatGroup @relation(fields: [groupId], references: [id])
+}
