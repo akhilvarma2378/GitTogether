@@ -41,6 +41,7 @@ model Project {
   title          String
   description    String
   requiredSkills String[]
+  capacity       Int
   status         ProjectStatus @default(OPEN)
   createdAt      DateTime      @default(now())
 
