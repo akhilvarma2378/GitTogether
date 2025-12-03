@@ -15,7 +15,7 @@ export default function ChatRoom() {
 
   // 1. Initialize Socket
   useEffect(() => {
-    const newSocket = io('http://localhost:3000', {
+    const newSocket = io('http://192.168.31.44:3000', {
       auth: { token: localStorage.getItem('token') } // Send Token for Auth
     });
 
