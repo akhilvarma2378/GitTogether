@@ -19,6 +19,6 @@ router.get("/project/:projectId", authenticate, getProjectApplications);
 
 // 3. Update Application Status (Accept/Reject)
 // PATCH /api/applications/:applicationId
-router.patch("/:applicationId", authenticate, updateApplicationStatus);
+router.patch("/:applicationId/status", authenticate, updateApplicationStatus);
 
 export default router;
