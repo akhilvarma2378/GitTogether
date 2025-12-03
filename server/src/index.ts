@@ -94,9 +94,12 @@ async function main() {
     console.log("✅ Database Connected Successfully");
     
     // Change app.listen to server.listen for Sockets to work!
-    server.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
+    server.listen(
+  { port: PORT, host: "0.0.0.0" },
+  () => {
+    console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
+  }
+);
   } catch (error) {
     console.error("❌ Database Connection Failed", error);
     process.exit(1);
