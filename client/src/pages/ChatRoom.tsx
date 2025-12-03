@@ -13,11 +13,13 @@ export default function ChatRoom() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // 1. Initialize Socket
-  useEffect(() => {
-    const newSocket = io('http://192.168.31.44:3000', {
-      auth: { token: localStorage.getItem('token') } // Send Token for Auth
-    });
+const SOCKET_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace('/api', '');
+
+useEffect(() => {
+  const newSocket = io(SOCKET_URL, {
+    auth: { token: localStorage.getItem('token') },
+    transports: ['websocket', 'polling']
+  });
 
     newSocket.on('connect', () => {
       console.log("Connected to socket");
