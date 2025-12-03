@@ -4,102 +4,51 @@ import { Server } from "socket.io";
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import helmet from "helmet"; // Security headers
+import rateLimit from "express-rate-limit"; // Spam protection
 
 dotenv.config();
 
 const prisma = new PrismaClient();
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT || "3000"); // Render gives you a PORT
 const SECRET = process.env.JWT_SECRET || "fallback_secret";
+// The URL of your Frontend (We will set this in Render dashboard later)
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
-// 1. Create Http Server & Socket Server
+// 1. Basic Security Middleware
+app.use(helmet()); 
+
+// 2. Rate Limiting (Stops one IP from spamming your API)
+// Allow 100 requests per 15 minutes per IP
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  message: "Too many requests, please try again later."
+});
+app.use("/api", limiter);
+
 const server = http.createServer(app);
+
+// 3. Strict CORS (Only allow YOUR frontend)
 const io = new Server(server, {
   cors: {
-    origin: "*", // In production, change this to your Frontend URL (e.g. http://localhost:5173)
+    origin: CLIENT_URL, // <--- Only this URL can connect
     methods: ["GET", "POST"],
+    credentials: true
   },
 });
 
-// 2. Middleware: Socket Authentication
-io.use((socket, next) => {
-  const token = socket.handshake.auth.token; // Client sends { auth: { token: "..." } }
-  
-  if (!token) {
-    return next(new Error("Authentication error: No token provided"));
-  }
+// ... (Keep your existing Middleware & Socket Logic here) ...
 
-  try {
-    const decoded = jwt.verify(token, SECRET) as { userId: number };
-    socket.data.userId = decoded.userId; // Attach userId to socket session
-    next();
-  } catch (err) {
-    next(new Error("Authentication error: Invalid token"));
-  }
-});
-
-// 3. Connection Logic
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id} (User ID: ${socket.data.userId})`);
-
-  // Event: Join a Chat Room
-  socket.on("join_room", (projectId) => {
-    // Make the socket join a specific "channel" named after the project
-    socket.join(projectId.toString());
-    console.log(`User ${socket.data.userId} joined room: ${projectId}`);
-  });
-
-  // Event: Send Message
-  socket.on("send_message", async (data) => {
-    // data expects: { projectId, content }
-    try {
-      const { projectId, content } = data;
-      const senderId = socket.data.userId;
-
-      // A. Find the ChatGroup ID for this project
-      const group = await prisma.chatGroup.findUnique({
-        where: { projectId: parseInt(projectId) }
-      });
-
-      if (!group) return; // Should handle error better in real app
-
-      // B. Save to Database (Persistence)
-      const savedMessage = await prisma.message.create({
-        data: {
-          content: content,
-          senderId: senderId,
-          groupId: group.id,
-        },
-        include: {
-          sender: { select: { id: true, name: true } }
-        }
-      });
-
-      // C. Broadcast to everyone in the room (including sender)
-      io.to(projectId.toString()).emit("receive_message", savedMessage);
-      
-    } catch (error) {
-      console.error("Message error:", error);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
-  });
-});
-
-// 4. Start Server
 async function main() {
   try {
     await prisma.$connect();
     console.log("✅ Database Connected Successfully");
     
-    // Change app.listen to server.listen for Sockets to work!
-    server.listen(
-  { port: PORT, host: "0.0.0.0" },
-  () => {
-    console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
-  }
-);
+    // 4. Bind to 0.0.0.0 (REQUIRED for Render/Docker)
+    server.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
   } catch (error) {
     console.error("❌ Database Connection Failed", error);
     process.exit(1);
