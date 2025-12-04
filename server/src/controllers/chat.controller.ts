@@ -1,8 +1,6 @@
 import { Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../config/db";
 import { AuthRequest } from "../middleware/auth.middleware";
-
-const prisma = new PrismaClient();
 
 // --- Get All Chat Groups for the Logged-in User ---
 export const getMyChats = async (req: AuthRequest, res: Response): Promise<any> => {

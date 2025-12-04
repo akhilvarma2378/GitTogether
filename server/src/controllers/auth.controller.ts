@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../config/db";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/auth";
 
-const prisma = new PrismaClient();
 
 export const signup = async (req: Request, res: Response): Promise<any> => {
   try {

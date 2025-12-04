@@ -1,9 +1,9 @@
 
 import { Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../config/db";
 import { AuthRequest } from "../middleware/auth.middleware";
 
-const prisma = new PrismaClient();
+
 
 
 export const applyToProject = async (req: AuthRequest, res: Response): Promise<any> => {
