@@ -55,31 +55,31 @@ docker run -p 3000:3000 --env-file .env gittogether-server
 ```
 
 
-Deploy to Render:
+- Deploy to Render:
 
-Connect repo to Render.
+- Connect repo to Render.
 
-Set Root Directory to server.
+- Set Root Directory to server.
 
-Add Environment Variables from .env.
+- Add Environment Variables from .env.
 
-Render will automatically build using the Dockerfile.
+- Render will automatically build using the Dockerfile.
 
 ## 📡 API Endpoints
 
-# Auth
+## Auth
 
 - POST /api/auth/signup - Register a new user.
 
 - POST /api/auth/login - Login and receive JWT.
 
-# Projects
+## Projects
 
 - GET /api/projects - List all projects (supports ?skills=React,Node).
 
 - POST /api/projects - Create a new project (Protected).
 
-# Applications
+## Applications
 
 - POST /api/applications/project/:id - Apply to a project.
 
@@ -87,7 +87,7 @@ Render will automatically build using the Dockerfile.
 
 - PATCH /api/applications/:id/status - Accept/Reject applicant.
 
-# Chat
+## Chat
 
 - GET /api/chats - Get list of joined chat groups.
 
