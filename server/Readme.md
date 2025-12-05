@@ -65,33 +65,33 @@ Add Environment Variables from .env.
 
 Render will automatically build using the Dockerfile.
 
-📡 API Endpoints
+## 📡 API Endpoints
 
-Auth
+# Auth
 
-POST /api/auth/signup - Register a new user.
+- POST /api/auth/signup - Register a new user.
 
-POST /api/auth/login - Login and receive JWT.
+- POST /api/auth/login - Login and receive JWT.
 
-Projects
+# Projects
 
-GET /api/projects - List all projects (supports ?skills=React,Node).
+- GET /api/projects - List all projects (supports ?skills=React,Node).
 
-POST /api/projects - Create a new project (Protected).
+- POST /api/projects - Create a new project (Protected).
 
-Applications
+# Applications
 
-POST /api/applications/project/:id - Apply to a project.
+- POST /api/applications/project/:id - Apply to a project.
 
-GET /api/applications/project/:id/manage - View applicants (Owner only).
+- GET /api/applications/project/:id/manage - View applicants (Owner only).
 
-PATCH /api/applications/:id/status - Accept/Reject applicant.
+- PATCH /api/applications/:id/status - Accept/Reject applicant.
 
-Chat
+# Chat
 
-GET /api/chats - Get list of joined chat groups.
+- GET /api/chats - Get list of joined chat groups.
 
-GET /api/chats/:projectId/messages - Get chat history.
+- GET /api/chats/:projectId/messages - Get chat history.
 
 ## 🔌 Real-Time Sockets
 
