@@ -97,8 +97,8 @@ GET /api/chats/:projectId/messages - Get chat history.
 
 The server listens for WebSocket connections on the same port.
 
-+Event: join_room (payload: projectId)
++ Event: join_room (payload: projectId)
 
-+Event: send_message (payload: { content, projectId })
++ Event: send_message (payload: { content, projectId })
 
-+Event: receive_message (Broadcasts message object)
++ Event: receive_message (Broadcasts message object)
