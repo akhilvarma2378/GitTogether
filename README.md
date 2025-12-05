@@ -24,33 +24,21 @@ GitTogether/
 
 Tech Stack
 
-Layer |Technologies
+Layer |  Technologies
 
- -------- | -------- 
+-------- | -------- 
 
-Frontend |
+Frontend | React, Vite, TypeScript, Tailwind CSS, Lucide Icons
 
-React, Vite, TypeScript, Tailwind CSS, Lucide Icons
+Backend | Node.js, Express.js, Socket.io (WebSockets)
 
-Backend|
+Database| PostgreSQL (Hosted on Supabase), Prisma ORM
 
-Node.js, Express.js, Socket.io (WebSockets)
+Authentication| JWT (JSON Web Tokens), Bcrypt
 
-Database|
+DevOps| Docker, Render (Backend), Vercel (Frontend)
 
-PostgreSQL (Hosted on Supabase), Prisma ORM
-
-Authentication|
-
-JWT (JSON Web Tokens), Bcrypt
-
-DevOps|
-
-Docker, Render (Backend), Vercel (Frontend)
-
-Deployment|
-
-Vercel (Client), Render (Server via Docker)
+Deployment| Vercel (Client), Render (Server via Docker)
 
 🛠️ Quick Start (Local Development)
 
