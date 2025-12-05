@@ -11,7 +11,7 @@ Backend (Render): https://git-together-backend.onrender.com
 🏗️ Architecture
 
 This project follows a Monorepo structure separating the client and server logic.
-
+```
 GitTogether/
 ├── client/              # Frontend (React + Vite)
 │   ├── src/             # UI Components & Pages
@@ -20,7 +20,7 @@ GitTogether/
     ├── prisma/          # Database Schema
     ├── src/             # API Controllers & Socket Logic
     └── Dockerfile       # Deployment Config
-
+```
 
 Tech Stack
 
