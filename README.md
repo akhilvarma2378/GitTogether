@@ -1,14 +1,14 @@
-##GitTogether 🤝
+## GitTogether 🤝
 
 GitTogether is a full-stack collaboration platform designed to help developers find partners for side projects. It facilitates matching based on skills ("I want a project" vs. "I want a partner") and enables real-time collaboration through project-based chat groups.
 
-##🚀 Live Demo
+## 🚀 Live Demo
 
 Frontend (Vercel): https://git-together-client.vercel.app/login
 
 Backend (Render): https://git-together-backend.onrender.com
 
-##🏗️ Architecture
+## 🏗️ Architecture
 
 This project follows a Monorepo structure separating the client and server logic.
 ```
@@ -35,7 +35,7 @@ GitTogether/
 
 
 
-##🛠️ Quick Start (Local Development)
+## 🛠️ Quick Start (Local Development)
 
 To run the entire stack locally, you need two terminals.
 
@@ -60,7 +60,7 @@ npm run dev
 
 The app will be available at http://localhost:5173.
 
-##✨ Key Features
+## ✨ Key Features
 
 Identity: Secure Authentication (Signup/Login) with hashed passwords.
 
