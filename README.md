@@ -26,27 +26,29 @@ Tech Stack
 
 Layer
 
-Technology
+Technologies
+
+| -------- | -------- |
 
 Frontend
 
-React, Vite, TypeScript, Tailwind CSS
+React, Vite, TypeScript, Tailwind CSS, Lucide Icons
 
 Backend
 
-Node.js, Express, Socket.io
+Node.js, Express.js, Socket.io (WebSockets)
 
 Database
 
-PostgreSQL (Hosted on Supabase)
-
-ORM
-
-Prisma
+PostgreSQL (Hosted on Supabase), Prisma ORM
 
 Authentication
 
-JWT (JSON Web Tokens)
+JWT (JSON Web Tokens), Bcrypt
+
+DevOps
+
+Docker, Render (Backend), Vercel (Frontend)
 
 Deployment
 
