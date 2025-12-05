@@ -24,21 +24,9 @@ GitTogether/
 
 Tech Stack
 
-| Header    | Heading |
+| Layer   |  Technologies |
 | --------- | ------- |
-| first     |         |
-|           |         |
-|           |         |
-|           |         |
-|           |         |
-|           |         |
-|           |         |
-
-Layer |  Technologies
-
--------- | -------- 
-
-Frontend | React, Vite, TypeScript, Tailwind CSS, Lucide Icons
+| Frontend | React, Vite, TypeScript, Tailwind CSS, Lucide Icons |
 
 Backend | Node.js, Express.js, Socket.io (WebSockets)
 
