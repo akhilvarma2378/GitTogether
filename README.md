@@ -27,15 +27,10 @@ Tech Stack
 | Layer   |  Technologies |
 | --------- | ------- |
 | Frontend | React, Vite, TypeScript, Tailwind CSS, Lucide Icons |
-
 | Backend | Node.js, Express.js, Socket.io (WebSockets) |
-
 | Database | PostgreSQL (Hosted on Supabase), Prisma ORM |
-
 | Authentication | JWT (JSON Web Tokens), Bcrypt |
-
 | DevOps | Docker, Render (Backend), Vercel (Frontend) |
-
 | Deployment | Vercel (Client), Render (Server via Docker) |
 
 🛠️ Quick Start (Local Development)
