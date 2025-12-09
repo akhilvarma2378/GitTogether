@@ -1,96 +1,71 @@
-# GitTogether 🤝
+## GitTogether 🤝
 
-**GitTogether** is a connection platform for developers to find partners for side projects. It facilitates matching based on skills ("I want a project" vs "I want a partner") and enables real-time collaboration through project-based chat groups.
+GitTogether is a full-stack collaboration platform designed to help developers find partners for side projects. It facilitates matching based on skills ("I want a project" vs. "I want a partner") and enables real-time collaboration through project-based chat groups.
 
-## 🚀 Tech Stack
+## 🚀 Live Demo
 
-**Backend:**
-* **Runtime:** Node.js
-* **Framework:** Express.js
-* **Language:** TypeScript
-* **Database:** PostgreSQL
-* **ORM:** Prisma
-* **Real-time:** Socket.io (Setup complete, logic pending)
+Frontend (Vercel): https://git-together-client.vercel.app/login
 
-**Frontend (Planned):**
-* **Framework:** React (Vite)
-* **Language:** TypeScript
+Backend (Render): https://git-together-backend.onrender.com
 
----
+## 🏗️ Architecture
 
-## 📂 Project Structure (Monorepo)
-
-The project follows a monorepo structure to manage client and server in a single repository.
-
-```text
+This project follows a Monorepo structure separating the client and server logic.
+```
 GitTogether/
-├── client/              # Frontend React Application (Initialized)
-├── server/              # Backend Node/Express Application
-│   ├── src/
-│   │   ├── config/      # Environment & DB Config
-│   │   ├── controllers/ # Business Logic
-│   │   ├── middleware/  # Auth & Validation
-│   │   ├── routes/      # API Endpoints
-│   │   ├── utils/       # Helper functions
-│   │   ├── app.ts       # Express App Setup
-│   │   └── index.ts     # Server Entry Point
-│   ├── prisma/
-│   │   └── schema.prisma # Database Schema definition
-│   └── package.json
-├── .gitignore           # Global git ignore
-└── README.md
+├── client/              # Frontend (React + Vite)
+│   ├── src/             # UI Components & Pages
+│   └── ...
+└── server/              # Backend (Node.js + Express)
+    ├── prisma/          # Database Schema
+    ├── src/             # API Controllers & Socket Logic
+    └── Dockerfile       # Deployment Config
 ```
 
-🛠️ Getting Started (Backend)
-Follow these steps to set up the backend server locally.
+## Tech Stack
 
-1. Prerequisites
-Node.js (v18+)
+| Layer          | Technologies                                                |
+|----------------|-------------------------------------------------------------|
+| Frontend       | React, Vite, TypeScript, Tailwind CSS, Lucide Icons         |
+| Backend        | Node.js, Express.js, Socket.io (WebSockets)                 |
+| Database       | PostgreSQL (Supabase), Prisma ORM                           |
+| Authentication | JWT (JSON Web Tokens), Bcrypt                               |
+| DevOps         | Docker, Render (Backend), Vercel (Frontend)                 |
+| Deployment     | Vercel (Client), Render (Server via Docker)                 |
 
-PostgreSQL installed and running locally.
 
-2. Installation
-Navigate to the server directory and install dependencies:
 
-```Bash
+## 🛠️ Quick Start (Local Development)
+
+To run the entire stack locally, you need two terminals.
+
+1. Start the Backend
+```bash
 cd server
 npm install
-```
-
-3. Environment Setup
-Create a .env file in the server/ directory:
-
-```bash
-# server/.env
-DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/gittogether_db?schema=public"
-JWT_SECRET="your_super_secret_key"
-PORT=3000
-```
-
-4. Database Migration
-Run the Prisma migration to create the tables in your local PostgreSQL database:
-
-```Bash
-
-npx prisma migrate dev --name init_schema
-```
-
-5. Running the Server
-Start the development server (uses nodemon and ts-node):
-
-```Bash
-
+# Ensure .env is set up (see server/README.md)
+npx prisma migrate dev
 npm run dev
 ```
 
-You should see:
+
+2. Start the Frontend
 ```bash
-✅ Database Connected Successfully 🚀 Server running on http://localhost:3000
+cd client
+npm install
+# Ensure .env is set up (see client/README.md)
+npm run dev
 ```
 
-🔜 Next Steps
-[ ] Auth API: Implement Signup/Login (JWT & Bcrypt).
 
-[ ] Project API: Routes to Create and Get projects (with filters).
+The app will be available at http://localhost:5173.
 
-[ ] Frontend: Initialize React Client.
+## ✨ Key Features
+
+Identity: Secure Authentication (Signup/Login) with hashed passwords.
+
+Marketplace: Post projects with skill requirements or filter existing projects.
+
+Smart Matching: Apply to projects; Owners can Accept/Reject applicants.
+
+Real-time Chat: Accepted applicants are automatically added to a private Socket.io chat room with the owner.
