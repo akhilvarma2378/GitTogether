@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './ui/Button';
 import { User, Settings } from 'lucide-react';
@@ -14,13 +14,18 @@ interface Project {
 
 interface ProjectCardProps {
   project: Project;
+  hasApp : boolean
   onApply: (id: number) => Promise<void>; // Update type to Promise
 }
 
-export default function ProjectCard({ project, onApply }: ProjectCardProps) {
+export default function ProjectCard({ project, hasApp, onApply }: ProjectCardProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [hasApplied, setHasApplied] = useState(false); // Simple local state for UI feedback
+  const [hasApplied, setHasApplied] = useState(false); 
+  
+  useEffect(() => {
+  setHasApplied(hasApp);
+}, [hasApp]);// Simple local state for UI feedback
 
   const handleApplyClick = async () => {
     setLoading(true);

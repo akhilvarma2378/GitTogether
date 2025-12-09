@@ -8,6 +8,8 @@ export default function Dashboard() {
   const { user } = useAuth();
   const [projects, setProjects] = useState<any[]>([]);
   const [skillFilter, setSkillFilter] = useState('');
+  const [appliedProjectIds, setAppliedProjectIds] = useState<number[]>([]);
+
 
   const fetchProjects = async (skills = '') => {
     try {
@@ -23,15 +25,15 @@ export default function Dashboard() {
     fetchProjects();
   }, []);
 
-  const handleApply = async (projectId: number) => {
-    try {
-      await api.post(`/applications/project/${projectId}`);
-      // Don't alert success, the button text change is enough feedback
-    } catch (error: any) {
-      alert(error.response?.data?.message || "Failed to apply");
-      throw error; // Throw so the card knows to stop loading state
-    }
-  };
+const handleApply = async (projectId: number) => {
+  try {
+    await api.post(`/applications/project/${projectId}`);
+    setAppliedProjectIds((prev) => [...prev, projectId]);
+  } catch (error: any) {
+    alert(error.response?.data?.message || "Failed to apply");
+    throw error;
+  }
+};
 
   return (
     <div className="space-y-8">
@@ -59,10 +61,11 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((p) => (
+        {projects.map((p) => (         
           <ProjectCard 
             key={p.id} 
-            project={{...p, isOwner: p.ownerId === user?.id}} 
+            project={{...p, isOwner: p.ownerId === user?.id}}
+            hasApp = {appliedProjectIds.includes(p.id)}
             onApply={handleApply}
           />
         ))}

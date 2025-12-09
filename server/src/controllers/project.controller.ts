@@ -49,11 +49,23 @@ export const getProjects = async (req: AuthRequest, res: Response): Promise<any>
         owner: {
           select: { name: true, email: true },
         },
+        applications: {
+          where: { userId: req.user!.userId },     // <-- Only include the logged-in user's application
+          select: { id: true },
+        }
       },
       orderBy: { createdAt: "desc" }, 
     });
 
-    res.json(projects);
+    const result = projects.map(p => {
+      const { applications, ...rest } = p;
+      return {
+        ...rest,
+        hasApplied: applications.length > 0,
+      };
+    });
+
+    res.json(result);
   } catch (error) {
     res.status(500).json({ message: "Error fetching projects", error });
   }
