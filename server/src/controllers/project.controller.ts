@@ -31,6 +31,7 @@ export const getProjects = async (req: AuthRequest, res: Response): Promise<any>
   try {
     
     const { skills } = req.query;
+    const userId = req.user?.userId;
 
     let filter = {};
 
@@ -43,6 +44,8 @@ export const getProjects = async (req: AuthRequest, res: Response): Promise<any>
       };
     }
 
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+
     const projects = await prisma.project.findMany({
       where: filter,
       include: {
@@ -50,7 +53,7 @@ export const getProjects = async (req: AuthRequest, res: Response): Promise<any>
           select: { name: true, email: true },
         },
         applications: {
-          where: { userId: req.user!.userId },     // <-- Only include the logged-in user's application
+          where: { userId: userId },     // <-- Only include the logged-in user's application
           select: { id: true },
         }
       },

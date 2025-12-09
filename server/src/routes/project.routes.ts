@@ -8,6 +8,6 @@ const router = Router();
 router.post("/", authenticate, createProject);
 
 
-router.get("/", getProjects);
+router.get("/",authenticate, getProjects);
 
 export default router;
