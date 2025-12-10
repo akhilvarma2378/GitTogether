@@ -21,11 +21,11 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, hasApp, onApply }: ProjectCardProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [hasApplied, setHasApplied] = useState(false); 
+  const [hasApplied, setHasApplied] = useState(hasApp); 
   
   useEffect(() => {
   setHasApplied(hasApp);
-}, [hasApp]);// Simple local state for UI feedback
+}, [hasApp]);
 
   const handleApplyClick = async () => {
     setLoading(true);

@@ -10,12 +10,17 @@ export default function Dashboard() {
   const [skillFilter, setSkillFilter] = useState('');
   const [appliedProjectIds, setAppliedProjectIds] = useState<number[]>([]);
 
-
   const fetchProjects = async (skills = '') => {
     try {
       const url = skills ? `/projects?skills=${skills}` : '/projects';
       const { data } = await api.get(url);
       setProjects(data);
+      data.map((p:any)=>{
+        if(p.hasApplied){
+          setAppliedProjectIds((prev) => [...prev, p.id]);
+        }
+      })
+
     } catch (error) {
       console.error("Failed to fetch projects");
     }
